@@ -4,7 +4,13 @@ const path = require('path')
 const app = express()
 const port = 3000
 
+const smMiddleware = (req, res, next)=>{
+  console.log("req");
+  console.log(req);
+}
+
 app.use(express.static(path.join(__dirname, "public")))
+app.use(smMiddleware)
 
 app.get('/hello', (req, res) => {
   res.send('Hello World!')
