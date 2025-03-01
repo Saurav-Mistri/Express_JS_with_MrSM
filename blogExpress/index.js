@@ -1,7 +1,17 @@
 const express = require('express')
+const {engine} = require('express-handlebars');
 const path = require('path')
 const app = express()
 const port = 3000
+
+// app.engine('handlebars', exphbs());
+app.engine('handlebars', engine({ extname: '.handlebars', defaultLayout: "main"}));
+
+app.set('view engine', 'handlebars');
+
+app.get('/', function (req, res) {
+    res.render('home');
+});
 
 app.use(express.static(path.join(__dirname, "static")))
 
