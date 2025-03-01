@@ -7,10 +7,12 @@ const port = 3000
 const smMiddleware = (req, res, next)=>{
   console.log("req");
   console.log(req);
+  // to execute next middleware we use next() 
+  next();
 }
 
 app.use(express.static(path.join(__dirname, "public")))
-app.use(smMiddleware)
+// app.use(smMiddleware)
 
 app.get('/hello', (req, res) => {
   res.send('Hello World!')
