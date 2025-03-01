@@ -4,25 +4,32 @@ const blogs = require('../data/blogs')
 
 const router = express.Router()
 
-router.get('/',(req,res)=>{
+router.get('/', (req, res) => {
     // res.sendFile(path.join(__dirname,'../templates/index.html'))
     res.render('home');
 })
 
-router.get('/blog',(req,res)=>{
-    blogs.forEach(element => {
-        console.log(element.title);
+router.get('/blog', (req, res) => {
+    // res.sendFile(path.join(__dirname,'../templates/blogHome.html'))
+    res.render('blogHome', {
+        blogs: blogs
     });
-    res.sendFile(path.join(__dirname,'../templates/blogHome.html'))
 })
 
-router.get('/blog-post/:slug',(req,res)=>{    
-    myBlog = blogs.filter((element)=>{
-        return element.slug = req.params.slug
-    });
-    console.log(myBlog);
+router.get('/blogpost/:slug', (req, res) => {
+    console.log(req.params.slug);
     
-    res.sendFile(path.join(__dirname,'../templates/blogPost.html'))
+    myBlog = blogs.filter((element) => {
+        return element.slug == req.params.slug
+    });
+    // console.log(myBlog);
+    // res.sendFile(path.join(__dirname,'../templates/blogPost.html'))
+    // console.log(myBlog[0]);
+    
+    res.render('blogPage', {
+        title: myBlog[0].title,
+        content: myBlog[0].content
+    })
 })
 
 module.exports = router
